@@ -8,8 +8,9 @@ def load_image(url):
     try:
         response = requests.get(url)  # Делаем запрос по ссылке url и то ,что вернется положим в respons
         response.raise_for_status()  # Для обработки исключений. Если будет ошибка, здесь ее получим
-        imag_data = BytesIO(response.content)  # Делаем изображение. В переменную кладем обработанное с IO изображение
-        img = Image.open(imag_data)
+        image_data = BytesIO(response.content)  # Делаем изображение. В переменную кладем обработанное с IO изображение
+        img = Image.open(image_data)
+        img.thumbnail((600,480), Image.Resampling.LANCZOS)
         return ImageTk.PhotoImage(img)  # Функция вернет картинку img
     except Exception as e:
         print(f"Произошла ошибка: {e}")
@@ -26,7 +27,7 @@ def set_image():
 
 window = Tk()
 window.title("Cats")
-window.geometry("600x480")
+window.geometry("600x520")
 
 label = Label()
 label.pack()
