@@ -17,11 +17,15 @@ def load_image(url):
         return None  # Если все хорошо функция вернет изображение, если ошибка, то ничего не вернет, но напишет ошибку
 
 
-def set_image():
+def open_new_window():
     img = load_image(url)  # Сюда кладем картинку полученную в функции load_image
 
     if img:
-        label.config(image=img)  # Далее установим полученное img в метку label
+        new_window = Toplevel()
+        new_window.title("Картинка с котиком")
+        new_window.geometry("600x480")
+        label = Label(new_window, image=img)  # Далее установим полученное img в метку label
+        label.pack()
         label.image = img  # Чтобы сборщик мусора не удалил картинку
 
 
@@ -38,15 +42,12 @@ window.config(menu=mainmenu)
 
 file_menu = Menu(mainmenu, tearoff=0)
 mainmenu.add_cascade(label="Файл", menu=file_menu)
-file_menu.add_command(label= "Обновить фото", command=set_image)
+file_menu.add_command(label= "Обновить фото", command=open_new_window)
 file_menu.add_separator()
 file_menu.add_command(label="Выход", command=exit)
 
-label = Label()
-label.pack()
-
 url = "https://cataas.com/cat"
 
-set_image()  # Чтобы картинка появилась при запуске проекта
+open_new_window()  # Чтобы картинка появилась при запуске проекта
 
 window.mainloop()
