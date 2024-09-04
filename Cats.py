@@ -25,15 +25,25 @@ def set_image():
         label.image = img  # Чтобы сборщик мусора не удалил картинку
 
 
+def exit():
+    window.destroy()
+
+
 window = Tk()
 window.title("Cats")
 window.geometry("600x520")
 
+mainmenu = Menu(window)
+window.config(menu=mainmenu)
+
+file_menu = Menu(mainmenu, tearoff=0)
+mainmenu.add_cascade(label="Файл", menu=file_menu)
+file_menu.add_command(label= "Обновить фото", command=set_image)
+file_menu.add_separator()
+file_menu.add_command(label="Выход", command=exit)
+
 label = Label()
 label.pack()
-
-update_button = Button(text="Обновить", command=set_image)
-update_button.pack()
 
 url = "https://cataas.com/cat"
 
