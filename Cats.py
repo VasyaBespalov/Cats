@@ -18,7 +18,9 @@ def load_image(url):
 
 
 def open_new_window():
-    img = load_image(url)  # Сюда кладем картинку полученную в функции load_image
+    tag = tag_entry.get()
+    url_tag = f"https://cataas.com/cat/{tag}" if tag else "https://cataas.com/cat"
+    img = load_image(url_tag)  # Сюда кладем картинку полученную в функции load_image
 
     if img:
         new_window = Toplevel()
@@ -37,6 +39,12 @@ window = Tk()
 window.title("Cats")
 window.geometry("600x520")
 
+tag_entry = Entry()
+tag_entry.pack()
+
+load_button = Button(text="Загрузить по тегу", command=open_new_window)
+load_button.pack()
+
 mainmenu = Menu(window)
 window.config(menu=mainmenu)
 
@@ -48,6 +56,6 @@ file_menu.add_command(label="Выход", command=exit)
 
 url = "https://cataas.com/cat"
 
-open_new_window()  # Чтобы картинка появилась при запуске проекта
+# open_new_window()  # Чтобы картинка появилась при запуске проекта
 
 window.mainloop()
